@@ -1,0 +1,74 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!--    Mod information-->
+    <GameVersion>1.6</GameVersion>
+    <ModName>Template RimWorld Mod</ModName>
+    
+<!--    Don't change the below!-->
+    <OutputType>Library</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>11</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <DebugType>embedded</DebugType>
+    <EmbedAllSources>true</EmbedAllSources>
+    <OutputPath>../../$(GameVersion)/Assemblies/</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+
+    <!-- System variables using SDK property functions -->
+    <IsWindows>$([System.OperatingSystem]::IsWindows())</IsWindows>
+    <IsLinux>$([System.OperatingSystem]::IsLinux())</IsLinux>
+    <IsMacOS>$([System.OperatingSystem]::IsMacOS())</IsMacOS>
+    <CurrentOS Condition="'$(IsMacOS)' == 'True'">MacOS</CurrentOS>
+    <CurrentOS Condition="'$(IsLinux)' == 'True'">Linux</CurrentOS>
+    <CurrentOS Condition="'$(IsWindows)' == 'True'">Windows</CurrentOS>
+    <UserName>$([System.Environment]::UserName)</UserName>
+    <UserFolder Condition="'$(CurrentOS)' != 'Windows'">$(HOME)</UserFolder>
+    <UserFolder Condition="'$(CurrentOS)' == 'Windows'">$(USERPROFILE)</UserFolder>
+    
+    <!--    Some fallbacks for RimWorldPath, but otherwise define this in OS manually for best fit-->
+    <RimWorldPath Condition="'$(RimWorldPath)' == '' and '$(IsMacOS)' == 'True'">$(UserFolder)/Library/Application Support/Steam/steamapps/common/RimWorld/RimWorldMac.app</RimWorldPath>
+    <RimWorldPath Condition="'$(RimWorldPath)' == '' and '$(IsLinux)' == 'True'">$(UserFolder)/.local/share/Steam/steamapps/common/RimWorld</RimWorldPath>
+    <RimWorldPath Condition="'$(RimWorldPath)' == '' and '$(IsWindows)' == 'True'">C:/Program Files (x86)/Steam/steamapps/common/RimWorld</RimWorldPath>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4633" />
+    <PackageReference Include="Lib.Harmony.Ref" Version="2.4.2" />
+  </ItemGroup>
+
+  <!-- Post-build deployment -->
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Message Text="Username: $(UserName)" Importance="high"/>
+    <Message Text="Current Operating System: $(CurrentOS)" Importance="High" />    
+    <Message Text="Deploying $(ModName) to RimWorld..." Importance="high" />
+
+    <!-- Remove existing mod from RimWorld if it exists -->
+    <RemoveDir Directories="$(RimWorldPath)/Mods/$(ModName)" Condition="Exists('$(RimWorldPath)/Mods/$(ModName)')" />
+
+    <!-- Define what to copy -->
+    <ItemGroup>
+      <!-- Source folder (excluding obj and bin) -->
+      <SourceFiles Include="$(MSBuildProjectDirectory)/**/*.*"
+                   Exclude="$(MSBuildProjectDirectory)/obj/**/*.*;$(MSBuildProjectDirectory)/bin/**/*.*;$(MSBuildProjectDirectory)/.idea/**/*.*;$(MSBuildProjectDirectory)/packages/**/*.*;" />
+      
+      <!-- About folder -->
+      <AboutFiles Include="$(MSBuildProjectDirectory)/../../About/**/*.*" />
+
+      <!-- Root files -->
+      <RootFiles Include="$(MSBuildProjectDirectory)/../../LICENSE" />
+      <RootFiles Include="$(MSBuildProjectDirectory)/../../README.md" />
+      <RootFiles Include="$(MSBuildProjectDirectory)/../../loadFolders.xml"/>
+      
+      <GameVersionFiles Include="$(MSBuildProjectDirectory)/../../$(GameVersion)/**/*.*" />
+    </ItemGroup>
+
+    <!-- Copy all defined files -->
+    <Copy SourceFiles="@(SourceFiles)" DestinationFiles="@(SourceFiles->'$(RimWorldPath)/Mods/$(ModName)/Source/%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(AboutFiles)" DestinationFiles="@(AboutFiles->'$(RimWorldPath)/Mods/$(ModName)/About/%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(RootFiles)" DestinationFiles="@(RootFiles->'$(RimWorldPath)/Mods/$(ModName)/%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(GameVersionFiles)" DestinationFiles="@(GameVersionFiles->'$(RimWorldPath)/Mods/$(ModName)/$(GameVersion)/%(RecursiveDir)%(Filename)%(Extension)')" />
+
+    <Message Text="$(ModName) deployed successfully to $(RimWorldPath)/Mods/$(ModName)" Importance="high" />
+  </Target>
+</Project>

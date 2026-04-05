@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+    <Template.VersionUpdate>URGENT FROM Template RW! PLEASE READ</Template.VersionUpdate>
+    <Template.VersionUpdateMain>Hi! Sorry for the interruption, but Template RW has gotten a potential save-damaging update since the last time you've played.\n\nIf this is a new save, carry on, otherwise please continue reading.\n\nThis version has been marked as an update that could potentially affect the balance of your saves or damage them.\n\nIf you would like to know more, please go to the mod page on Steam and check the discussions for the changelog.</Template.VersionUpdateMain>
+    <Template.ModName>Template RW</Template.ModName>
+    <Template.EnableLoggingExplanation>Enable Developer Logging</Template.EnableLoggingExplanation>
+</LanguageData>
