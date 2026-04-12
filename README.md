@@ -3,6 +3,7 @@ Mian's Multiplayer Patches is a collection of patches made to add multiplayer co
 
 ## Patches 🔧
 - [Simple Animal Gear](https://steamcommunity.com/sharedfiles/filedetails/?id=3521657062)
+- [Integrated Implants](https://steamcommunity.com/sharedfiles/filedetails/?id=3223443793)
 
 ## FAQ ❓
 - Will you add multiplayer compatibility with this other mod?
@@ -10,7 +11,7 @@ Mian's Multiplayer Patches is a collection of patches made to add multiplayer co
 
 ## Credits 👏
 - MianReplicate (Creator)
-- Multiplayer Compatibility (Example Code)
+- [Multiplayer Compatibility](https://steamcommunity.com/sharedfiles/filedetails/?id=1629973374) (Example Code)
 
 ## Links
 [Patreon - Donations](https://patreon.com/loxi?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink)

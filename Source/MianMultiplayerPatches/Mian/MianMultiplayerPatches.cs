@@ -26,10 +26,13 @@ public class MianMultiplayerPatches : Mod
     {
         ModSettings.Instance = GetSettings<ModSettings>();
         Constants.ModContent = content;
-        
-        Helper.Log("Multiplayer mod not detected! Did you put this mod after it in the mod list?");
-        
-        if (!MP.enabled) return;
+        Constants.Harmony = new Harmony("rimworld.mian.MianMultiplayer");
+
+        if (!MP.enabled)
+        {
+            Helper.Log("Multiplayer mod not detected! Did you put this mod after it in the mod list?");
+            return;
+        }
         
         Helper.Log("Patching up dem mods for all your multiplayer needs :D");
 
@@ -47,15 +50,14 @@ public class MianMultiplayerPatches : Mod
             {
                 Activator.CreateInstance(assembly.type, assembly.mod);
                 
-                Helper.Log($"Initialized compatibility for {assembly.mod.PackageId}");
+                Helper.Log($"Initialized compatibility for {assembly.mod.ModMetaData.Name}");
             }
             catch (Exception e)
             {
-                Helper.Error($"Exception occurred while loading {assembly.mod.PackageId}: {e.InnerException}");
+                Helper.Error($"Exception occurred while loading {assembly.mod.ModMetaData.Name}: {e.InnerException}");
             }
         }
         
-        Constants.Harmony = new Harmony("rimworld.mian.MianMultiplayer");
         Constants.Harmony.PatchAll();
     }
 

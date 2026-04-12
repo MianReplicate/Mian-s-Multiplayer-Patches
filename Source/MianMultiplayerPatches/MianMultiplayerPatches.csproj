@@ -46,6 +46,14 @@
       <HintPath>$(Workshop)/3521657062/1.6/Assemblies/SimpleAnimalGear.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="IntegratedImplants">
+      <HintPath>$(Workshop)/3223443793\1.6\Assemblies\Implants.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="EBSGFramework">
+      <HintPath>$(Workshop)/3112549163\1.6\Assemblies\EBSGFramework.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
   </ItemGroup>
 
   <!-- Post-build deployment -->
