@@ -1,4 +1,4 @@
-﻿namespace TemplateRW.Mian.Utilities;
+﻿namespace MianMultiplayerPatches.Mian.Utilities;
 
 public static class Helper
 {
@@ -13,7 +13,7 @@ public static class Helper
 
     public static void Debug(string text)
     {
-        if (TemplateSettings.Instance.EnableLogging)
+        if (ModSettings.Instance.EnableLogging)
             Verse.Log.Message(AppendModID(text));
     }
 

@@ -2,12 +2,12 @@
   <PropertyGroup>
     <!--    Mod information-->
     <GameVersion>1.6</GameVersion>
-    <ModName>Template RimWorld Mod</ModName>
+    <ModName>Mian's Multiplayer Patches</ModName>
     
 <!--    Don't change the below!-->
     <OutputType>Library</OutputType>
-    <TargetFramework>net472</TargetFramework>
-    <LangVersion>11</LangVersion>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>12</LangVersion>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <DebugType>embedded</DebugType>
     <EmbedAllSources>true</EmbedAllSources>
@@ -27,14 +27,25 @@
     <UserFolder Condition="'$(CurrentOS)' == 'Windows'">$(USERPROFILE)</UserFolder>
     
     <!--    Some fallbacks for RimWorldPath, but otherwise define this in OS manually for best fit-->
-    <RimWorldPath Condition="'$(RimWorldPath)' == '' and '$(IsMacOS)' == 'True'">$(UserFolder)/Library/Application Support/Steam/steamapps/common/RimWorld/RimWorldMac.app</RimWorldPath>
+    <RimWorldPath Condition="'$(RimWorldPath)' == '' and '$(IsMacOS)' == 'True'">$(UserFolder)/Library/Application Support/Steam/steamapps/common/RimWorld</RimWorldPath>
     <RimWorldPath Condition="'$(RimWorldPath)' == '' and '$(IsLinux)' == 'True'">$(UserFolder)/.local/share/Steam/steamapps/common/RimWorld</RimWorldPath>
     <RimWorldPath Condition="'$(RimWorldPath)' == '' and '$(IsWindows)' == 'True'">C:/Program Files (x86)/Steam/steamapps/common/RimWorld</RimWorldPath>
+    <RimWorldInternal Condition="'$(IsMacOS)' == 'True'">$(RimWorldPath)/RimWorldMac.app</RimWorldInternal>
+    <RimWorldInternal Condition="'$(IsMacOS)' == 'False'">$(RimWorldPath)</RimWorldInternal>
+    <Workshop>$(RimWorldPath)/../../workshop/content/294100</Workshop>
   </PropertyGroup>
   
   <ItemGroup>
     <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4633" />
     <PackageReference Include="Lib.Harmony.Ref" Version="2.4.2" />
+    <PackageReference Include="RimWorld.MultiplayerAPI" Version="0.6.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Reference Include="SimpleAnimalGear">
+      <HintPath>$(Workshop)/3521657062/1.6/Assemblies/SimpleAnimalGear.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
   </ItemGroup>
 
   <!-- Post-build deployment -->
@@ -64,10 +75,12 @@
     </ItemGroup>
 
     <!-- Copy all defined files -->
-    <Copy SourceFiles="@(SourceFiles)" DestinationFiles="@(SourceFiles->'$(RimWorldPath)/Mods/$(ModName)/Source/%(RecursiveDir)%(Filename)%(Extension)')" />
-    <Copy SourceFiles="@(AboutFiles)" DestinationFiles="@(AboutFiles->'$(RimWorldPath)/Mods/$(ModName)/About/%(RecursiveDir)%(Filename)%(Extension)')" />
-    <Copy SourceFiles="@(RootFiles)" DestinationFiles="@(RootFiles->'$(RimWorldPath)/Mods/$(ModName)/%(Filename)%(Extension)')" />
-    <Copy SourceFiles="@(GameVersionFiles)" DestinationFiles="@(GameVersionFiles->'$(RimWorldPath)/Mods/$(ModName)/$(GameVersion)/%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Message Text="@(SourceFiles)" Importance="high" />
+
+    <Copy SourceFiles="@(SourceFiles)" DestinationFolder="$(RimWorldPath)/Mods/$(ModName)/Source/%(RecursiveDir)" />
+    <Copy SourceFiles="@(AboutFiles)" DestinationFolder="$(RimWorldPath)/Mods/$(ModName)/About/%(RecursiveDir)" />
+    <Copy SourceFiles="@(RootFiles)" DestinationFolder="$(RimWorldPath)/Mods/$(ModName)/%(RecursiveDir)" />
+    <Copy SourceFiles="@(GameVersionFiles)" DestinationFolder="$(RimWorldPath)/Mods/$(ModName)/$(GameVersion)/%(RecursiveDir)" />
 
     <Message Text="$(ModName) deployed successfully to $(RimWorldPath)/Mods/$(ModName)" Importance="high" />
   </Target>

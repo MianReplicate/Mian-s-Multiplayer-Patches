@@ -1,8 +1,8 @@
-﻿using RimWorld;
-using TemplateRW.Mian.Utilities;
+﻿using MianMultiplayerPatches.Mian.Utilities;
+using RimWorld;
 using Verse;
 
-namespace TemplateRW.Mian.GameComps;
+namespace MianMultiplayerPatches.Mian.GameComps;
 
 public class VersionTracker : GameComponent
 {
