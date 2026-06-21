@@ -4,6 +4,7 @@ Mian's Multiplayer Patches is a collection of patches made to add multiplayer co
 ## Patches 🔧
 - [Simple Animal Gear](https://steamcommunity.com/sharedfiles/filedetails/?id=3521657062)
 - [Integrated Implants](https://steamcommunity.com/sharedfiles/filedetails/?id=3223443793)
+- [EBSG Framework](https://steamcommunity.com/sharedfiles/filedetails/?id=3112549163)
 
 ## FAQ ❓
 - Will you add multiplayer compatibility with this other mod?

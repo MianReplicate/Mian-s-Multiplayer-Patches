@@ -47,11 +47,23 @@
       <Private>false</Private>
     </Reference>
     <Reference Include="IntegratedImplants">
-      <HintPath>$(Workshop)/3223443793\1.6\Assemblies\Implants.dll</HintPath>
+      <HintPath>$(Workshop)/3223443793/1.6/Assemblies/Implants.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="EBSGFramework">
-      <HintPath>$(Workshop)/3112549163\1.6\Assemblies\EBSGFramework.dll</HintPath>
+      <HintPath>$(Workshop)/3112549163/1.6/Assemblies/EBSGFramework.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include = "Embergarden">
+      <HintPath>$(Workshop)/3421959154/1.6/Assemblies/Embergarden.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include = "Milira Race">
+      <HintPath>$(Workshop)/3256974620/1.6/Assemblies/Milira.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include = "Ancot Library">
+      <HintPath>$(Workshop)/2988801276/1.6/Assemblies/AncotLibrary.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>

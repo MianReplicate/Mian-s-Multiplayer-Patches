@@ -43,7 +43,7 @@ public class MianMultiplayerPatches : Mod
                 assembly => assembly.patch.PackageId.ToLower(),
                 mod => mod.PackageId.Replace("_steam", "").Replace("_copy", ""),
                 (assembly, mod) => new {assembly.type, mod});
-
+        
         foreach (var assembly in patches)
         {
             try

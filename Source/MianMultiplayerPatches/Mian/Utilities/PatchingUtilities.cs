@@ -209,4 +209,27 @@ using Verse;
             }
         }
         #endregion
+
+        public static void FindOpCode(this CodeMatcher matcher, OpCode opcode, int targetOrdinal=0)
+        {
+            var ordinal = 0;
+            matcher.SearchForward((instruction) =>
+            {
+                if (instruction.opcode == opcode)
+                {
+                    if (ordinal != targetOrdinal)
+                    {
+                        ordinal++;
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                    
+                }
+
+                return false;
+            });
+        }
     }
